@@ -409,7 +409,7 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/analyse")
+@app.route("/analyse/")
 def analyse():
     aus_only = parse_aus_only_flag()
     raw_df = load_raw_data()
@@ -448,7 +448,7 @@ def analyse():
     return response
 
 
-@app.route("/arbitrage")
+@app.route("/arbitrage/")
 def arbitrage():
     aus_only = parse_aus_only_flag()
     raw_df = load_raw_data()
@@ -470,7 +470,7 @@ def arbitrage():
     return response
 
 
-@app.route("/arbitrage/calc")
+@app.route("/arbitrage/calc/")
 def arbitrage_calc():
     game = request.args.get("game") or ""
     player = request.args.get("player") or ""
@@ -508,7 +508,7 @@ def arbitrage_calc():
     )
 
 
-@app.route("/top-bets")
+@app.route("/top-bets/")
 def top_bets():
     aus_only = parse_aus_only_flag()
     df, _, _ = load_top_bets()
@@ -523,7 +523,7 @@ def top_bets():
     return response
 
 
-@app.route("/about")
+@app.route("/about/")
 def about():
     return render_template("about.html")
 
@@ -576,7 +576,7 @@ def point_detail():
     )
 
 
-@app.route("/bet/<path:bet_key>")
+@app.route("/bet/<path:bet_key>/")
 def bet_detail(bet_key):
     df, columns, rows = load_top_bets()
     summary = next((row for row in rows if str(row.get("Bet")) == bet_key), None)
