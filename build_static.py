@@ -6,8 +6,7 @@ from flask_frozen import Freezer
 from app import app, load_top_bets
 
 BASE_DIR = Path(__file__).resolve().parent
-ROOT_DIR = BASE_DIR.parent
-DEST_DIR = ROOT_DIR / "docs"
+DEST_DIR = BASE_DIR / "docs"
 
 # Configure freezer for GitHub Pages (docs/ + relative URLs).
 app.config.update(

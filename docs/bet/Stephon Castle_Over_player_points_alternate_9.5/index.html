@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stephon Castle | Points | OVER | 9.5 | Top Bets</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="../../static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="page__header">
+      <div>
+        <h1>Bet detail</h1>
+        <p>Stephon Castle | Points | OVER | 9.5</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn" href="../../index.html">Home</a>
+        <a class="btn" href="../../about/index.html">About</a>
+        <a class="btn" href="../../analyse/index.html">Analyse Games</a>
+        <a class="btn" href="../../top-bets/index.html">Top Bets</a>
+      </nav>
+      <a class="link-back" href="../../top-bets/index.html">← Back to list</a>
+    </header>
+
+    
+    <section class="card">
+      <h2>Summary</h2>
+      <dl class="summary-grid">
+        
+        <div><dt>Price</dt><dd>1.24</dd></div>
+        
+        <div><dt>Bookmaker</dt><dd>Ladbrokes</dd></div>
+        
+        <div><dt>Average Price</dt><dd>1.16</dd></div>
+        
+        <div><dt>Threshold</dt><dd>1.2</dd></div>
+        
+        <div><dt>Sample size</dt><dd>12</dd></div>
+        
+        <div><dt>Above threshold</dt><dd>0.043794058193044</dd></div>
+        
+        <div><dt>Consensus prob</dt><dd>85.89835361488903</dd></div>
+        
+        <div><dt>Implied prob</dt><dd>80.64516129032258</dd></div>
+        
+        <div><dt>Prob diff</dt><dd>-5.25</dd></div>
+        
+      </dl>
+    </section>
+    
+
+    <section class="detail-grid">
+      <div class="table-container">
+        <h2>Bookmaker prices</h2>
+        
+        <table id="bookmakers-table" class="display nowrap">
+          <thead>
+            <tr>
+              
+              <th>bookmaker</th>
+              
+              <th>price</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              
+              <td>FanDuel</td>
+              
+              <td>1.19</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>FanDuel</td>
+              
+              <td>1.18</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>SportsBet</td>
+              
+              <td>1.17</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>SportsBet</td>
+              
+              <td>1.16</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>DraftKings</td>
+              
+              <td>1.17</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>Ladbrokes</td>
+              
+              <td>1.24</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>theScore Bet</td>
+              
+              <td>1.17</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>PointsBet (AU)</td>
+              
+              <td>1.14</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>TAB</td>
+              
+              <td>1.14</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>BetMGM</td>
+              
+              <td>1.11</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>Betr</td>
+              
+              <td>1.15</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>Hard Rock Bet</td>
+              
+              <td>1.15</td>
+              
+            </tr>
+            
+          </tbody>
+        </table>
+        
+      </div>
+
+      <div class="card chart-card">
+        <h2>Price distribution</h2>
+        
+        <canvas id="price-chart" aria-label="Price distribution chart"></canvas>
+        
+      </div>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(function() {
+      $('#bookmakers-table').DataTable({
+        paging: false,
+        scrollX: true,
+        order: [[1, "desc"]] // sort by Price (second column) Z->A
+      });
+    });
+  </script>
+  
+  <script>
+    (function() {
+      const rows = [{"bookmaker": "FanDuel", "price": 1.19}, {"bookmaker": "FanDuel", "price": 1.18}, {"bookmaker": "SportsBet", "price": 1.17}, {"bookmaker": "SportsBet", "price": 1.16}, {"bookmaker": "DraftKings", "price": 1.17}, {"bookmaker": "Ladbrokes", "price": 1.24}, {"bookmaker": "theScore Bet", "price": 1.17}, {"bookmaker": "PointsBet (AU)", "price": 1.14}, {"bookmaker": "TAB", "price": 1.14}, {"bookmaker": "BetMGM", "price": 1.11}, {"bookmaker": "Betr", "price": 1.15}, {"bookmaker": "Hard Rock Bet", "price": 1.15}];
+      const meanPrice = 1.16;
+      const stdPrice = 0.040000000000000036;
+      const counts = {};
+      rows.forEach(r => {
+        const val = Number(r.price);
+        if (!Number.isFinite(val)) return;
+        const key = val.toFixed(2);
+        counts[key] = (counts[key] || 0) + 1;
+      });
+
+      const values = [];
+      Object.entries(counts).forEach(([k, c]) => {
+        const v = Number(k);
+        if (Number.isFinite(v)) {
+          for (let i = 0; i < c; i++) values.push(v);
+        }
+      });
+      values.sort((a, b) => a - b);
+      if (!values.length) return;
+
+      const lowerFence = (Number.isFinite(meanPrice) && Number.isFinite(stdPrice)) ? +(meanPrice - stdPrice).toFixed(2) : null;
+      const upperFence = (Number.isFinite(meanPrice) && Number.isFinite(stdPrice)) ? +(meanPrice + stdPrice).toFixed(2) : null;
+
+      const minVal = Math.min(...values);
+      const maxVal = Math.max(...values);
+      const plotMin = +(minVal - 0.02).toFixed(2);
+      const plotMax = +(maxVal + 0.02).toFixed(2);
+
+      const data = [];
+      const seen = new Set();
+      values.forEach(v => {
+        const key = v.toFixed(2);
+        if (seen.has(key)) return;
+        seen.add(key);
+        const count = counts[key] || counts[v] || 0;
+        data.push({ x: v, y: 0, count });
+      });
+
+      const ctx = document.getElementById('price-chart');
+      if (!ctx) return;
+      const annotations = {};
+      if (Number.isFinite(meanPrice)) {
+        annotations.mean = {
+          type: 'line',
+          xMin: meanPrice,
+          xMax: meanPrice,
+          borderColor: '#ef4444',
+          borderWidth: 2,
+          label: {
+            display: true,
+            content: `Mean: ${meanPrice}`,
+            position: 'start',
+            backgroundColor: 'rgba(239,68,68,0.1)',
+            color: '#b91c1c',
+            padding: 4
+          }
+        };
+      }
+      if (Number.isFinite(lowerFence)) {
+        annotations.lowerFence = {
+          type: 'line',
+          xMin: lowerFence,
+          xMax: lowerFence,
+          borderColor: '#f59e0b',
+          borderWidth: 1.5,
+          label: {
+            display: true,
+            content: '-1σ',
+            position: 'start',
+            backgroundColor: 'rgba(245,158,11,0.1)',
+            color: '#92400e',
+            padding: 3
+          }
+        };
+      }
+      if (Number.isFinite(upperFence)) {
+        annotations.upperFence = {
+          type: 'line',
+          xMin: upperFence,
+          xMax: upperFence,
+          borderColor: '#f59e0b',
+          borderWidth: 1.5,
+          label: {
+            display: true,
+            content: '+1σ',
+            position: 'start',
+            backgroundColor: 'rgba(245,158,11,0.1)',
+            color: '#92400e',
+            padding: 3
+          }
+        };
+      }
+      new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: 'Bookmakers',
+            data,
+            pointBackgroundColor: (ctx) => {
+              const raw = ctx.raw || {};
+              const x = raw.x;
+              if (!Number.isFinite(lowerFence) || !Number.isFinite(upperFence)) return '#2563eb';
+              if (x < lowerFence || x > upperFence) return '#f59e0b'; // gold outside 1σ
+              return '#7c3aed'; // purple inside band
+            },
+            pointBorderColor: '#111827',
+            pointRadius: (ctx) => {
+              const count = ctx.raw && ctx.raw.count ? ctx.raw.count : 1;
+              return Math.min(14, 4 + count * 2);
+            }
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              type: 'linear',
+              title: { display: true, text: 'Price' },
+              min: plotMin,
+              max: plotMax,
+              ticks: {
+                callback: (val) => Number(val).toFixed(2)
+              }
+            },
+            y: {
+              display: false,
+              min: -0.5,
+              max: 0.5
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  const raw = ctx.raw || {};
+                  const count = raw.count ?? 0;
+                  return `${count} bookmaker(s) @ ${raw.x.toFixed(2)}`;
+                }
+              }
+            },
+            annotation: { annotations }
+          }
+        }
+      });
+    })();
+  </script>
+  
+</body>
+</html>

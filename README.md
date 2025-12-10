@@ -21,7 +21,7 @@ From the repo root:
 ```
 python fairodds/build_static.py
 ```
-This writes the frozen HTML into `docs/` with relative URLs that GitHub Pages can serve from the main branch. Commit the generated `docs/` folder and point GitHub Pages to the `/docs` source in the repository settings.
+This writes the frozen HTML into `fairodds/docs/` with relative URLs that GitHub Pages can serve from the main branch. Commit the generated `fairodds/docs/` folder and point GitHub Pages to the `/docs` source in the repository settings.
 
 ### Refresh the data
 Run the engine script to regenerate `data/top_bets.csv` (adds a `Bet` column, rounds mean/threshold):
