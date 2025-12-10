@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Top Bets</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <header class="page__header">
+      <div>
+        <h1>Top Bets</h1>
+        <p>Data source: data/top_bets.csv</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn" href="{{ url_for('home') }}">Home</a>
+        <a class="btn" href="{{ url_for('about') }}">About</a>
+        <a class="btn" href="{{ url_for('analyse') }}">Analyse Games</a>
+        <a class="btn btn-primary" href="{{ url_for('arbitrage') }}">Arbitrage Bets</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <form class="filter-form" method="get" action="{{ url_for('top_bets') }}">
+        <label class="checkbox">
+          <input type="checkbox" id="aus_only" name="aus_only" value="1" {% if aus_only %}checked{% endif %}>
+          Only show Australian bookmakers
+        </label>
+        <input type="hidden" name="aus_only" value="0">
+      </form>
+    </section>
+
+    <section class="table-container">
+      <table id="bets-table" class="display nowrap">
+        <thead>
+          <tr>
+            {% for col in columns %}
+            <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+          <tr>
+            {% for col in columns %}
+            <td>
+              {% if col == "Bet" %}
+                <a href="{{ url_for('bet_detail', bet_key=row['Bet']) }}">{{ row["BetDisplay"] }}</a>
+              {% else %}
+                {{ row[col] }}
+              {% endif %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(function() {
+      $('#bets-table').DataTable({
+        paging: true,
+        scrollX: true,
+        order: [],
+        stateSave: true
+      });
+
+      const ausForm = document.querySelector('.filter-form');
+      const ausCheckbox = document.getElementById('aus_only');
+      if (ausForm && ausCheckbox) {
+        ausCheckbox.addEventListener('change', () => ausForm.submit());
+      }
+    });
+  </script>
+</body>
+</html>
+

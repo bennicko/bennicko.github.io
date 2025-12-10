@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analyse Games | FairOdds</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <header class="page__header">
+      <div>
+        <p class="eyebrow">FairOdds</p>
+        <h1>Analyse games</h1>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn" href="{{ url_for('home') }}">Home</a>
+        <a class="btn" href="{{ url_for('about') }}">About</a>
+        <a class="btn" href="{{ url_for('top_bets') }}">Top Bets</a>
+        <a class="btn btn-primary" href="{{ url_for('arbitrage') }}">Arbitrage Bets</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <form class="filter-form" method="get" action="{{ url_for('analyse') }}">
+        <div class="form-field">
+          <label for="game">What game?</label>
+          <select id="game" name="game">
+            <option value="">Select a game</option>
+            {% for game in game_options %}
+            <option value="{{ game }}" {% if game == selected_game %}selected{% endif %}>{{ game }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="player">What player?</label>
+          <select id="player" name="player">
+            <option value="">Select a player</option>
+            {% for player in player_options %}
+            <option value="{{ player }}" {% if player == selected_player %}selected{% endif %}>{{ player }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="category">Market</label>
+          <select id="category" name="category">
+            <option value="points" {% if selected_category == "points" %}selected{% endif %}>Points</option>
+            <option value="rebounds" {% if selected_category == "rebounds" %}selected{% endif %}>Rebounds</option>
+            <option value="assists" {% if selected_category == "assists" %}selected{% endif %}>Assists</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="checkbox">
+            <input type="checkbox" id="aus_only" name="aus_only" value="1" {% if aus_only %}checked{% endif %}>
+            Only show Australian bookmakers
+          </label>
+          <input type="hidden" name="aus_only" value="0">
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Show prices</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="table-container">
+      <h2>Prices</h2>
+      {% if has_results %}
+        {% for group in results_groups %}
+        <div class="point-group card">
+          <h3 class="point-heading">
+            <a href="{{ url_for('point_detail', game=selected_game, player=selected_player, category=selected_category, point=group.point) }}">
+              {{ group.point }}
+            </a>
+          </h3>
+          <table class="display">
+            <thead>
+              <tr>
+                <th>Bookmaker</th>
+                <th>Over</th>
+                <th>Under</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in group.rows %}
+              <tr>
+                <td>{{ row.bookmaker }}</td>
+                <td>{{ row.over if row.over is not none else "N/A" }}</td>
+                <td>{{ row.under if row.under is not none else "N/A" }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% endfor %}
+      {% else %}
+      <p>Select a game, player, and market to see prices.</p>
+      {% endif %}
+    </section>
+  </main>
+  <script type="application/json" id="game-player-json">{{ game_player_map | tojson }}</script>
+  <div id="filters-data" data-selected-player="{{ selected_player }}"></div>
+  <script>
+    (function() {
+      const gamePlayersEl = document.getElementById('game-player-json');
+      const filtersData = document.getElementById('filters-data');
+      const gamePlayers = gamePlayersEl ? JSON.parse(gamePlayersEl.textContent || '{}') : {};
+      const gameSelect = document.getElementById('game');
+      const playerSelect = document.getElementById('player');
+      const selectedPlayer = filtersData ? filtersData.dataset.selectedPlayer : '';
+      const ausOnlyCheckbox = document.getElementById('aus_only');
+      const form = document.querySelector('.filter-form');
+
+      function repopulatePlayers() {
+        const game = gameSelect.value;
+        const players = gamePlayers[game] || [];
+        playerSelect.innerHTML = '';
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = players.length ? 'Select a player' : 'Select a game first';
+        playerSelect.appendChild(placeholder);
+        players.forEach(p => {
+          const opt = document.createElement('option');
+          opt.value = p;
+          opt.textContent = p;
+          if (selectedPlayer && p === selectedPlayer) {
+            opt.selected = true;
+          }
+          playerSelect.appendChild(opt);
+        });
+      }
+
+      gameSelect.addEventListener('change', repopulatePlayers);
+      repopulatePlayers();
+      if (ausOnlyCheckbox && form) {
+        ausOnlyCheckbox.addEventListener('change', () => form.submit());
+      }
+    })();
+  </script>
+</body>
+</html>
+
+

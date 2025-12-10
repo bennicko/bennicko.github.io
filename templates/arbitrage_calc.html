@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arbitrage Calculator | FairOdds</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <header class="page__header">
+      <div>
+        <p class="eyebrow">FairOdds</p>
+        <h1>Arbitrage calculator</h1>
+        <p>Compute stakes for both sides given target winnings.</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn" href="{{ url_for('home') }}">Home</a>
+        <a class="btn" href="{{ url_for('arbitrage') }}">Arbitrage Bets</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <h2>Bet details</h2>
+      <dl class="summary-grid">
+        <div>
+          <dt>Game</dt>
+          <dd>{{ game }}</dd>
+        </div>
+        <div>
+          <dt>Player</dt>
+          <dd>{{ player }}</dd>
+        </div>
+        <div>
+          <dt>Market</dt>
+          <dd>{{ market_display }}</dd>
+        </div>
+        <div>
+          <dt>Point</dt>
+          <dd>{{ point_display }}</dd>
+        </div>
+        <div>
+          <dt>Over</dt>
+          <dd>{{ over_bookmaker }} @ {{ over_price }}</dd>
+        </div>
+        <div>
+          <dt>Under</dt>
+          <dd>{{ under_bookmaker }} @ {{ under_price }}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="card">
+      <h2>Calculator</h2>
+      <form class="filter-form filter-form--compact" method="get" action="{{ url_for('arbitrage_calc') }}">
+        <input type="hidden" name="game" value="{{ game }}">
+        <input type="hidden" name="player" value="{{ player }}">
+        <input type="hidden" name="market" value="{{ market }}">
+        <input type="hidden" name="point" value="{{ point }}">
+        <input type="hidden" name="over_bookmaker" value="{{ over_bookmaker }}">
+        <input type="hidden" name="under_bookmaker" value="{{ under_bookmaker }}">
+        <input type="hidden" name="over_price" value="{{ over_price }}">
+        <input type="hidden" name="under_price" value="{{ under_price }}">
+
+        <div class="form-field">
+          <label for="winnings">Maximum stake</label>
+          <input id="winnings" name="winnings" type="number" step="0.01" min="0" value="{{ winnings if winnings is not none else '' }}" placeholder="Enter maximum stake">
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Calculate</button>
+        </div>
+      </form>
+
+      {% if calc_result %}
+      <div class="summary-grid" style="margin-top: 12px;">
+        <div>
+          <dt>Stake Over</dt>
+          <dd>{{ calc_result.stake_over }}</dd>
+        </div>
+        <div>
+          <dt>Stake Under</dt>
+          <dd>{{ calc_result.stake_under }}</dd>
+        </div>
+        <div>
+          <dt>Return if Over wins</dt>
+          <dd>{{ calc_result.return_over }}</dd>
+        </div>
+        <div>
+          <dt>Return if Under wins</dt>
+          <dd>{{ calc_result.return_under }}</dd>
+        </div>
+        <div>
+          <dt>Total profit</dt>
+          <dd>{{ calc_result.total_profit }}</dd>
+        </div>
+      </div>
+      {% elif winnings is not none %}
+      <p style="color: #b91c1c;">Invalid inputs. Please enter a maximum stake greater than 0 and valid odds.</p>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>
+

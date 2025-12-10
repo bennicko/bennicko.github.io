@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ bet_display }} | Top Bets</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="page__header">
+      <div>
+        <h1>Bet detail</h1>
+        <p>{{ bet_display }}</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn" href="{{ url_for('home') }}">Home</a>
+        <a class="btn" href="{{ url_for('about') }}">About</a>
+        <a class="btn" href="{{ url_for('analyse') }}">Analyse Games</a>
+        <a class="btn" href="{{ url_for('top_bets') }}">Top Bets</a>
+      </nav>
+      <a class="link-back" href="{{ url_for('top_bets') }}">← Back to list</a>
+    </header>
+
+    {% if summary_display %}
+    <section class="card">
+      <h2>Summary</h2>
+      <dl class="summary-grid">
+        {% for label, value in summary_display %}
+        <div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>
+        {% endfor %}
+      </dl>
+    </section>
+    {% endif %}
+
+    <section class="detail-grid">
+      <div class="table-container">
+        <h2>Bookmaker prices</h2>
+        {% if bookmakers %}
+        <table id="bookmakers-table" class="display nowrap">
+          <thead>
+            <tr>
+              {% for col in bookmaker_columns %}
+              <th>{{ col }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in bookmakers %}
+            <tr>
+              {% for col in bookmaker_columns %}
+              <td>{{ row[col] }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>No bookmaker records found for this bet.</p>
+        {% endif %}
+      </div>
+
+      <div class="card chart-card">
+        <h2>Price distribution</h2>
+        {% if bookmakers %}
+        <canvas id="price-chart" aria-label="Price distribution chart"></canvas>
+        {% else %}
+        <p>No data to chart.</p>
+        {% endif %}
+      </div>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(function() {
+      $('#bookmakers-table').DataTable({
+        paging: false,
+        scrollX: true,
+        order: [[1, "desc"]] // sort by Price (second column) Z->A
+      });
+    });
+  </script>
+  {% if bookmakers %}
+  <script>
+    (function() {
+      const rows = {{ bookmakers | tojson }};
+      const meanPrice = {{ mean_price | tojson }};
+      const stdPrice = {{ std_price | tojson }};
+      const counts = {};
+      rows.forEach(r => {
+        const val = Number(r.price);
+        if (!Number.isFinite(val)) return;
+        const key = val.toFixed(2);
+        counts[key] = (counts[key] || 0) + 1;
+      });
+
+      const values = [];
+      Object.entries(counts).forEach(([k, c]) => {
+        const v = Number(k);
+        if (Number.isFinite(v)) {
+          for (let i = 0; i < c; i++) values.push(v);
+        }
+      });
+      values.sort((a, b) => a - b);
+      if (!values.length) return;
+
+      const lowerFence = (Number.isFinite(meanPrice) && Number.isFinite(stdPrice)) ? +(meanPrice - stdPrice).toFixed(2) : null;
+      const upperFence = (Number.isFinite(meanPrice) && Number.isFinite(stdPrice)) ? +(meanPrice + stdPrice).toFixed(2) : null;
+
+      const minVal = Math.min(...values);
+      const maxVal = Math.max(...values);
+      const plotMin = +(minVal - 0.02).toFixed(2);
+      const plotMax = +(maxVal + 0.02).toFixed(2);
+
+      const data = [];
+      const seen = new Set();
+      values.forEach(v => {
+        const key = v.toFixed(2);
+        if (seen.has(key)) return;
+        seen.add(key);
+        const count = counts[key] || counts[v] || 0;
+        data.push({ x: v, y: 0, count });
+      });
+
+      const ctx = document.getElementById('price-chart');
+      if (!ctx) return;
+      const annotations = {};
+      if (Number.isFinite(meanPrice)) {
+        annotations.mean = {
+          type: 'line',
+          xMin: meanPrice,
+          xMax: meanPrice,
+          borderColor: '#ef4444',
+          borderWidth: 2,
+          label: {
+            display: true,
+            content: `Mean: ${meanPrice}`,
+            position: 'start',
+            backgroundColor: 'rgba(239,68,68,0.1)',
+            color: '#b91c1c',
+            padding: 4
+          }
+        };
+      }
+      if (Number.isFinite(lowerFence)) {
+        annotations.lowerFence = {
+          type: 'line',
+          xMin: lowerFence,
+          xMax: lowerFence,
+          borderColor: '#f59e0b',
+          borderWidth: 1.5,
+          label: {
+            display: true,
+            content: '-1σ',
+            position: 'start',
+            backgroundColor: 'rgba(245,158,11,0.1)',
+            color: '#92400e',
+            padding: 3
+          }
+        };
+      }
+      if (Number.isFinite(upperFence)) {
+        annotations.upperFence = {
+          type: 'line',
+          xMin: upperFence,
+          xMax: upperFence,
+          borderColor: '#f59e0b',
+          borderWidth: 1.5,
+          label: {
+            display: true,
+            content: '+1σ',
+            position: 'start',
+            backgroundColor: 'rgba(245,158,11,0.1)',
+            color: '#92400e',
+            padding: 3
+          }
+        };
+      }
+      new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: 'Bookmakers',
+            data,
+            pointBackgroundColor: (ctx) => {
+              const raw = ctx.raw || {};
+              const x = raw.x;
+              if (!Number.isFinite(lowerFence) || !Number.isFinite(upperFence)) return '#2563eb';
+              if (x < lowerFence || x > upperFence) return '#f59e0b'; // gold outside 1σ
+              return '#7c3aed'; // purple inside band
+            },
+            pointBorderColor: '#111827',
+            pointRadius: (ctx) => {
+              const count = ctx.raw && ctx.raw.count ? ctx.raw.count : 1;
+              return Math.min(14, 4 + count * 2);
+            }
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              type: 'linear',
+              title: { display: true, text: 'Price' },
+              min: plotMin,
+              max: plotMax,
+              ticks: {
+                callback: (val) => Number(val).toFixed(2)
+              }
+            },
+            y: {
+              display: false,
+              min: -0.5,
+              max: 0.5
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  const raw = ctx.raw || {};
+                  const count = raw.count ?? 0;
+                  return `${count} bookmaker(s) @ ${raw.x.toFixed(2)}`;
+                }
+              }
+            },
+            annotation: { annotations }
+          }
+        }
+      });
+    })();
+  </script>
+  {% endif %}
+</body>
+</html>
+

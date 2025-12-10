@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ player }} | {{ point }} | {{ category|capitalize }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="page__header">
+      <div>
+        <p class="eyebrow">FairOdds</p>
+        <h1>{{ player }} — {{ category|capitalize }} @ {{ point }}</h1>
+        <p>{{ game }}</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn" href="{{ url_for('home') }}">Home</a>
+        <a class="btn" href="{{ url_for('about') }}">About</a>
+        <a class="btn" href="{{ url_for('analyse', game=game, player=player, category=category) }}">Back to Analyse</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <h2>Over prices</h2>
+      <p>Mean: {{ over_stats.mean if over_stats.mean is not none else "N/A" }}, Std dev: {{ over_stats.std if over_stats.std is not none else "N/A" }}, Count: {{ over_stats.count }}</p>
+      <div class="detail-grid">
+        <div class="table-container">
+          {% if over_prices %}
+          <table class="display">
+            <thead>
+              <tr><th>Bookmaker</th><th>Price</th></tr>
+            </thead>
+            <tbody>
+              {% for row in over_prices %}
+              <tr><td>{{ row.bookmaker }}</td><td>{{ row.price }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p>No Over prices found.</p>
+          {% endif %}
+        </div>
+        <div class="card chart-card">
+          {% if over_prices %}
+          <canvas id="over-chart"></canvas>
+          {% else %}
+          <p>No data to chart.</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Under prices</h2>
+      <p>Mean: {{ under_stats.mean if under_stats.mean is not none else "N/A" }}, Std dev: {{ under_stats.std if under_stats.std is not none else "N/A" }}, Count: {{ under_stats.count }}</p>
+      <div class="detail-grid">
+        <div class="table-container">
+          {% if under_prices %}
+          <table class="display">
+            <thead>
+              <tr><th>Bookmaker</th><th>Price</th></tr>
+            </thead>
+            <tbody>
+              {% for row in under_prices %}
+              <tr><td>{{ row.bookmaker }}</td><td>{{ row.price }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p>No Under prices found.</p>
+          {% endif %}
+        </div>
+        <div class="card chart-card">
+          {% if under_prices %}
+          <canvas id="under-chart"></canvas>
+          {% else %}
+          <p>No data to chart.</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function() {
+      const overStats = {{ over_stats | tojson }};
+      const underStats = {{ under_stats | tojson }};
+      const thresholdMultiplier = 1.5;
+
+      function buildScatter(canvasId, stats) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas || !stats || !stats.counts) return;
+        const counts = stats.counts;
+        const values = [];
+        Object.entries(counts).forEach(([k,c]) => {
+          const v = Number(k);
+          if (Number.isFinite(v)) {
+            for (let i=0;i<c;i++) values.push(v);
+          }
+        });
+        values.sort((a,b)=>a-b);
+        if (!values.length) return;
+
+        const mean = stats.mean;
+        const std = stats.std;
+        const lowerFence = (Number.isFinite(mean) && Number.isFinite(std) && std > 0) ? +(mean - std).toFixed(2) : null;
+        const upperFence = (Number.isFinite(mean) && Number.isFinite(std) && std > 0) ? +(mean + std).toFixed(2) : null;
+        const minVal = Math.min.apply(null, values);
+        const maxVal = Math.max.apply(null, values);
+        const plotMin = +(minVal - 0.02).toFixed(2);
+        const plotMax = +(maxVal + 0.02).toFixed(2);
+        const data = [];
+        const seen = new Set();
+        values.forEach(v => {
+          const key = v.toFixed(2);
+          if (seen.has(key)) return;
+          seen.add(key);
+          const count = counts[key] || counts[v] || 0;
+          if (count > 0) data.push({ x: v, y: 0, count });
+        });
+        const annotations = {};
+        if (Number.isFinite(mean)) {
+          annotations.mean = {
+            type: 'line',
+            xMin: mean,
+            xMax: mean,
+            borderColor: '#ef4444',
+            borderWidth: 2,
+            label: {
+              display: true,
+              content: `Mean: ${mean.toFixed(2)}`,
+              position: 'start',
+              backgroundColor: 'rgba(239,68,68,0.1)',
+              color: '#b91c1c',
+              padding: 4
+            }
+          };
+        }
+        if (Number.isFinite(lowerFence)) {
+          annotations.lowerFence = {
+            type: 'line',
+            xMin: lowerFence,
+            xMax: lowerFence,
+            borderColor: '#f59e0b',
+            borderWidth: 1.5,
+            label: {
+              display: true,
+              content: '-1σ',
+              position: 'start',
+              backgroundColor: 'rgba(245,158,11,0.1)',
+              color: '#92400e',
+              padding: 3
+            }
+          };
+        }
+        if (Number.isFinite(upperFence)) {
+          annotations.upperFence = {
+            type: 'line',
+            xMin: upperFence,
+            xMax: upperFence,
+            borderColor: '#f59e0b',
+            borderWidth: 1.5,
+            label: {
+              display: true,
+              content: '+1σ',
+              position: 'start',
+              backgroundColor: 'rgba(245,158,11,0.1)',
+              color: '#92400e',
+              padding: 3
+            }
+          };
+        }
+        new Chart(canvas, {
+          type: 'scatter',
+          data: {
+            datasets: [{
+              label: 'Bookmakers',
+              data,
+              pointBackgroundColor: (ctx) => {
+                const raw = ctx.raw || {};
+                const x = raw.x;
+                if (!Number.isFinite(lowerFence) || !Number.isFinite(upperFence)) return '#2563eb';
+                if (x < lowerFence || x > upperFence) return '#f59e0b'; // gold outside band
+                return '#7c3aed'; // purple inside band
+              },
+              pointBorderColor: '#111827',
+              pointRadius: (ctx) => {
+                const count = ctx.raw && ctx.raw.count ? ctx.raw.count : 1;
+                return Math.min(14, 4 + count * 2);
+              }
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                type: 'linear',
+                title: { display: true, text: 'Price' },
+                min: plotMin,
+                max: plotMax,
+                ticks: { callback: (val) => Number(val).toFixed(2) }
+              },
+              y: {
+                display: false,
+                min: -0.5,
+                max: 0.5
+              }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: ctx => {
+                    const raw = ctx.raw || {};
+                    const count = raw.count ?? 0;
+                    return `${count} bookmaker(s) @ ${raw.x.toFixed(2)}`;
+                  }
+                }
+              },
+              annotation: { annotations }
+            }
+          }
+        });
+      }
+
+      buildScatter('over-chart', overStats);
+      buildScatter('under-chart', underStats);
+    })();
+  </script>
+</body>
+</html>
+
