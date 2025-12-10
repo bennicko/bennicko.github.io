@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arbitrage Calculator | FairOdds</title>
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page__header">
+      <div>
+        <p class="eyebrow">FairOdds</p>
+        <h1>Arbitrage calculator</h1>
+        <p>Compute stakes for both sides given target winnings.</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn" href="../../index.html">Home</a>
+        <a class="btn" href="../index.html">Arbitrage Bets</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <h2>Bet details</h2>
+      <dl class="summary-grid">
+        <div>
+          <dt>Game</dt>
+          <dd></dd>
+        </div>
+        <div>
+          <dt>Player</dt>
+          <dd></dd>
+        </div>
+        <div>
+          <dt>Market</dt>
+          <dd></dd>
+        </div>
+        <div>
+          <dt>Point</dt>
+          <dd></dd>
+        </div>
+        <div>
+          <dt>Over</dt>
+          <dd> @ None</dd>
+        </div>
+        <div>
+          <dt>Under</dt>
+          <dd> @ None</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="card">
+      <h2>Calculator</h2>
+      <form class="filter-form filter-form--compact" method="get" action="index.html">
+        <input type="hidden" name="game" value="">
+        <input type="hidden" name="player" value="">
+        <input type="hidden" name="market" value="">
+        <input type="hidden" name="point" value="">
+        <input type="hidden" name="over_bookmaker" value="">
+        <input type="hidden" name="under_bookmaker" value="">
+        <input type="hidden" name="over_price" value="None">
+        <input type="hidden" name="under_price" value="None">
+
+        <div class="form-field">
+          <label for="winnings">Maximum stake</label>
+          <input id="winnings" name="winnings" type="number" step="0.01" min="0" value="" placeholder="Enter maximum stake">
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Calculate</button>
+        </div>
+      </form>
+
+      
+    </section>
+  </main>
+</body>
+</html>
