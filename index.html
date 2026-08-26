@@ -3,43 +3,267 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FairOdds</title>
-  
-  <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <!-- REPLACE: page title -->
+  <title>Benjamin Nicholson</title>
+  <meta name="description" content="Personal site of Benjamin Nicholson — work, projects, and writing.">
   <link rel="stylesheet" href="style.css">
-  
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body>
-  <div id="app">
-    <main class="page">
-      <div class="loading-state">
-        <p>Loading FairOdds...</p>
-      </div>
-    </main>
-  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Application Scripts -->
-  <script src="js/utils.js?v=2"></script>
-  <script src="js/data.js?v=2"></script>
-  <script src="js/pages/home.js?v=2"></script>
-  <script src="js/pages/about.js?v=2"></script>
-  <script src="js/pages/analyse.js?v=3"></script>
-  <script src="js/pages/topBets.js?v=2"></script>
-  <script src="js/pages/arbitrage.js?v=2"></script>
-  <script src="js/pages/arbitrageCalc.js?v=2"></script>
-  <script src="js/pages/betDetail.js?v=2"></script>
-  <script src="js/pages/pointDetail.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="site-mark" href="#top">BN</a>
+      <nav class="site-nav" aria-label="Page">
+        <a href="#about">About</a>
+        <a href="#studies">Studies</a>
+        <a href="#projects">Projects</a>
+        <!-- <a href="#writing">Writing</a> -->
+        <a href="#hobbies">Hobbies</a>
+        <a href="#work">Work</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap">
+        
+          
+          <figure class="hero-photo">
+            <img src="assets/portrait.jpg" alt="Portrait of Benjamin Nicholson">
+          </figure>
+        
+        <!-- REPLACE: name -->
+        <h1 class="hero-name">Benjamin Nicholson</h1>
+        <!-- REPLACE: headline -->
+        <p class="hero-headline">Mathematician / Salesman</p>
+        <!-- REPLACE: one-line pitch -->
+        <p class="hero-pitch">This is a collection of my projects, writings and other things.</p>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap">
+        <h2>About</h2>
+        <!-- REPLACE: about -->
+        <p>
+          I am a mathematics student at the University of Queensland. I've studied mechanical engineering for a few years before switching over to mathematics. 
+        </p>
+        <p>
+          I've worked in sales for a few years, selling health insurance on the phone, which has given me a unique ability to communicate complicated ideas 
+          in a very simple way. 
+        </p>
+        <p>
+          My current area of interest is in quantitative modelling of financial markets. I'm currently working on a sports-betting trading strategy that leverages
+          the discrepancies between the odds offered by different bookmakers for the same event.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="studies">
+      <div class="wrap">
+        <h2>Studies</h2>
+        <ol class="timeline">
+          <li class="timeline-item">
+            <div class="timeline-item__head">
+              <h3>Mathematics</h3>
+              <p class="timeline-item__meta">
+                <span>University of Queensland</span>
+                <span>Present</span>
+              </p>
+            </div>
+            <ul>
+              <li>Current undergraduate studies, after switching from mechanical engineering.</li>
+            </ul>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-item__head">
+              <h3>Mechanical Engineering</h3>
+              <p class="timeline-item__meta">
+                <span>Prior study</span>
+              </p>
+            </div>
+            <ul>
+              <li>A few years of coursework before moving into mathematics.</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="wrap wrap--wide">
+        <h2>Projects</h2>
+        <p class="section-lede">
+          A few pieces of work. Cards can later link to a write-up in
+          <code>projects/</code> or to an external URL.
+        </p>
+        <div class="project-grid">
+          <!-- REPLACE: project 1 — add href on the title when there is a page or URL -->
+          <article class="project-card">
+            <p class="project-card__meta">Personal project</p>
+            <h3>FairOdds</h3>
+            <p>
+              A static app for comparing NBA player-prop prices across bookmakers:
+              value flags, Over/Under arbitrage, and charts of how far a price sits
+              from the market mean.
+            </p>
+            <!-- <p><a href="projects/fairodds.html">View project</a></p> -->
+          </article>
+          <!-- REPLACE: project 2 -->
+          <article class="project-card">
+            <p class="project-card__meta">Personal project</p>
+            <h3>Dynasty Simulator</h3>
+            <p>
+              A fun simulation of how different dynasties evolve over time, in a
+              visually appealing way. Inspired by coursework in branching processes
+              and predator-prey ODE analysis.
+            </p>
+            <!-- <p><a href="projects/slug.html">View project</a></p> -->
+          </article>
+          <!-- REPLACE: project 3 -->
+          <article class="project-card project-card--empty">
+            <p class="project-card__meta">Coming later</p>
+            <h3>Project title</h3>
+            <p>
+              Another slot. Keep this to one tight paragraph — the resume can
+              carry the rest.
+            </p>
+            <!-- <p><a href="https://github.com/you/repo">View project</a></p> -->
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    Writing — uncomment this section and the nav link above to restore.
+
+    <section class="section" id="writing">
+      <div class="wrap">
+        <h2>Writing</h2>
+        <p class="section-lede">
+          Notes and longer pieces. Wrap a title in a link when the post is ready
+          (<code>writing/slug.html</code> or an external URL).
+        </p>
+        <ul class="writing-list">
+          REPLACE: writing 1
+          <li>
+            <span class="writing-list__title">A note on comparing prices, not picking winners</span>
+            <time datetime="2025-12" class="writing-list__date">Dec 2025</time>
+            wrap the title: <a href="writing/comparing-prices.html">...</a>
+          </li>
+          REPLACE: writing 2
+          <li>
+            <span class="writing-list__title">Placeholder: a short essay title</span>
+            <time datetime="2026-03" class="writing-list__date">Mar 2026</time>
+          </li>
+          REPLACE: writing 3
+          <li>
+            <span class="writing-list__title">Placeholder: another title worth clicking</span>
+            <time datetime="2026-06" class="writing-list__date">Jun 2026</time>
+          </li>
+        </ul>
+      </div>
+    </section>
+    -->
+
+    <section class="section" id="hobbies">
+      <div class="wrap">
+        <h2>Hobbies</h2>
+
+        <article class="hobby">
+          <h3>Basketball</h3>
+          <!-- REPLACE: basketball -->
+          <p>A sentence about how you play, watch, or follow the game.</p>
+        </article>
+
+        <article class="hobby">
+          <h3>Guitar</h3>
+          <!-- REPLACE: guitar -->
+          <p>A sentence about what you play, or why you picked it up.</p>
+        </article>
+
+        <article class="hobby">
+          <h3>Reading</h3>
+          <p class="hobby-lede">
+            Duplicate a block below for each book. Title first, then a few sentences of notes.
+          </p>
+          <ul class="note-list">
+            <!-- REPLACE: book — duplicate the list item below for each one -->
+            <li>
+              <p class="note-list__title">Book title</p>
+              <p class="note-list__body">What stayed with you, what you disagreed with, or why you’d recommend it.</p>
+            </li>
+            <li>
+              <p class="note-list__title">Book title</p>
+              <p class="note-list__body">A second slot. Replace this with your notes, or delete the block.</p>
+            </li>
+          </ul>
+        </article>
+
+        <article class="hobby">
+          <h3>Travelling</h3>
+          <p class="hobby-lede">
+            Duplicate a block below for each place.
+          </p>
+          <ul class="note-list">
+            <!-- REPLACE: place — duplicate the list item below for each one -->
+            <li>
+              <p class="note-list__title">Place name</p>
+              <p class="note-list__body">When you went, and a note on what it was like.</p>
+            </li>
+            <li>
+              <p class="note-list__title">Place name</p>
+              <p class="note-list__body">Another slot. Replace this, or delete it.</p>
+            </li>
+          </ul>
+        </article>
+
+        <article class="hobby">
+          <h3>Gym</h3>
+          <!-- REPLACE: gym -->
+          <p>A sentence about how you train, or what you get out of it.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="wrap">
+        <h2>Work</h2>
+        <ol class="timeline">
+          <li class="timeline-item">
+            <div class="timeline-item__head">
+              <h3>Health Insurance Sales Consultant (Outbound)</h3>
+              <p class="timeline-item__meta">
+                <span>money.com.au</span>
+                <time datetime="2026-01">January 2026 – Present</time>
+              </p>
+            </div>
+            <ul>
+              <li>Conduct outbound consultations to assess client health insurance requirements, probing individual needs to pitch and close custom-curated policies efficiently.</li>
+            </ul>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-item__head">
+              <h3>Sales Team Leader &amp; Outbound Consultant</h3>
+              <p class="timeline-item__meta">
+                <span>Compare The Market</span>
+              </p>
+              <p class="timeline-item__meta">
+                <span>Team Leader: Sept 2024 – July 2025</span>
+                <span>Consultant: June 2022 – Sept 2024, July 2025 – Present</span>
+              </p>
+            </div>
+            <ul>
+              <li><strong>Leadership &amp; Operations:</strong> Managed outbound call center consultants to maximize profitability across key metrics (contact conversion, annual GWP, sales volume). Analyzed reporting data to implement strategic improvements and upskilled staff through tailored 1-on-1 and group coaching.</li>
+              <li><strong>Direct Sales Excellence:</strong> Gathered customer requirements, structured high-impact sales pitches, and consistently surpassed rigorous business conversion targets.</li>
+              <li><strong>Key Achievements:</strong> Ranked 1st place on the CTM sales leaderboard (March 2024); set the all-time highest single-month contact conversion record (60.1% in June 2024); placed Top 5 in percentage over sales target across the entire call center (FY23–24).</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
-
