@@ -3,43 +3,149 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FairOdds</title>
-  
-  <!-- Styles -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <!-- REPLACE: page title -->
+  <title>Benjamin Nicholson</title>
+  <!-- REPLACE: meta description -->
+  <meta name="description" content="Selected work and writing from Benjamin Nicholson.">
   <link rel="stylesheet" href="style.css">
-  
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body>
-  <div id="app">
-    <main class="page">
-      <div class="loading-state">
-        <p>Loading FairOdds...</p>
-      </div>
-    </main>
-  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Application Scripts -->
-  <script src="js/utils.js?v=2"></script>
-  <script src="js/data.js?v=2"></script>
-  <script src="js/pages/home.js?v=2"></script>
-  <script src="js/pages/about.js?v=2"></script>
-  <script src="js/pages/analyse.js?v=3"></script>
-  <script src="js/pages/topBets.js?v=2"></script>
-  <script src="js/pages/arbitrage.js?v=2"></script>
-  <script src="js/pages/arbitrageCalc.js?v=2"></script>
-  <script src="js/pages/betDetail.js?v=2"></script>
-  <script src="js/pages/pointDetail.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <header class="site-header">
+    <a class="wordmark" href="#top">Benjamin Nicholson</a>
+    <nav class="site-nav" aria-label="Page sections">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#writing">Writing</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="name">
+      <!--
+        REPLACE: optional photo
+        Uncomment the image below and add assets/portrait.jpg
+        <img class="hero-photo" src="assets/portrait.jpg" alt="Portrait of Benjamin Nicholson" width="120" height="120">
+      -->
+      <p class="eyebrow">Hello</p>
+      <!-- REPLACE: name -->
+      <h1 id="name">Benjamin Nicholson</h1>
+      <!-- REPLACE: headline -->
+      <p class="headline">Data / Python practitioner</p>
+      <!-- REPLACE: one-line pitch -->
+      <p class="pitch">I turn messy questions into tools and analyses that other people can actually use.</p>
+    </section>
+
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <div class="prose">
+        <!-- REPLACE: about paragraph 1 -->
+        <p>A short bio belongs here — who you are, what you work on, and the kind of problems you like. Two or three sentences is enough; this page should complement a resume, not repeat it.</p>
+        <!-- REPLACE: about paragraph 2 -->
+        <p>Use this paragraph for context a hiring manager will not get from a CV: how you think, what you are learning, or the thread that runs through your work. Keep it specific and in your own voice.</p>
+        <!-- REPLACE: about paragraph 3 -->
+        <p>A final line can point toward what you want next — a role, a domain, or the kind of collaboration you are looking for — without turning the page into a cover letter.</p>
+      </div>
+    </section>
+
+    <section id="experience" aria-labelledby="experience-heading">
+      <h2 id="experience-heading">Experience</h2>
+      <ol class="timeline">
+        <!-- REPLACE: role 1 -->
+        <li class="role">
+          <div class="role-header">
+            <h3>Role title</h3>
+            <p class="meta"><span>Organisation</span><span class="dates">2024 — Present</span></p>
+          </div>
+          <ul>
+            <li>One concrete outcome or responsibility, written as a summary rather than a full job dump.</li>
+            <li>A second line on tools, scope, or the problem you were hired to solve.</li>
+          </ul>
+        </li>
+        <!-- REPLACE: role 2 -->
+        <li class="role">
+          <div class="role-header">
+            <h3>Earlier role</h3>
+            <p class="meta"><span>Organisation</span><span class="dates">2022 — 2024</span></p>
+          </div>
+          <ul>
+            <li>What you built, analysed, or shipped, in one sentence.</li>
+            <li>Who it was for, and why it mattered.</li>
+          </ul>
+        </li>
+        <!-- REPLACE: role 3 -->
+        <li class="role">
+          <div class="role-header">
+            <h3>Earlier still</h3>
+            <p class="meta"><span>Organisation</span><span class="dates">2020 — 2022</span></p>
+          </div>
+          <ul>
+            <li>A brief note on the work — keep it to the highlights a resume already covers in more detail.</li>
+            <li>Optional: a skill or domain you want a reader to remember.</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <section id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      <p class="section-lead">Selected work. Cards below can become links to a write-up or a live demo when you are ready.</p>
+      <div class="project-grid">
+        <!-- REPLACE: project 1 — FairOdds (add href on the article when you re-host it) -->
+        <article class="card">
+          <p class="card-kicker">Analysis</p>
+          <h3>FairOdds</h3>
+          <p>A client-side analysis of NBA player-prop prices across bookmakers — comparing odds, surfacing outliers, and illustrating why advertised prices are rarely good value.</p>
+        </article>
+        <!--
+          REPLACE: project 2
+          To link this card, change <article class="card"> to
+          <a class="card card-link" href="projects/slug.html">
+          and close with </a> instead of </article>
+        -->
+        <article class="card">
+          <p class="card-kicker">Project</p>
+          <h3>Project title</h3>
+          <p>One or two sentences on what it is, who it is for, and the interesting part of the work. Link it later from this card.</p>
+        </article>
+        <!-- REPLACE: project 3 -->
+        <article class="card">
+          <p class="card-kicker">Project</p>
+          <h3>Project title</h3>
+          <p>Placeholder for another piece of work. Swap the title and copy, then add an href when there is somewhere to send people.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="writing" aria-labelledby="writing-heading">
+      <h2 id="writing-heading">Writing</h2>
+      <ul class="writing-list">
+        <!--
+          REPLACE: writing 1
+          To link an entry, wrap the inner markup in
+          <a href="writing/slug.html"> … </a>
+        -->
+        <li>
+          <article class="writing-item">
+            <h3>A note on comparing prices</h3>
+            <p class="meta"><time datetime="2025-12">December 2025</time></p>
+            <p>Placeholder for a short essay, note, or explainer. Replace the title and date, then add a link when the piece lives at writing/slug.html or elsewhere.</p>
+          </article>
+        </li>
+        <!-- REPLACE: writing 2 -->
+        <li>
+          <article class="writing-item">
+            <h3>Title of a second piece</h3>
+            <p class="meta"><time datetime="2025-06">June 2025</time></p>
+            <p>A one-line description of what the reader will find. Keep the list short; this is a pointer, not an archive.</p>
+          </article>
+        </li>
+      </ul>
+    </section>
+  </main>
 </body>
 </html>
-
