@@ -1,36 +1,35 @@
 # bennicko.github.io
 
-Personal landing page at [bennicko.github.io](https://bennicko.github.io/). Static HTML and CSS, served from the root of `main` by GitHub Pages. No build step.
+Personal landing page at [bennicko.github.io](https://bennicko.github.io/). A short complement to a resume: about, studies, projects, hobbies, and work.
+
+Plain HTML and CSS. No build step. GitHub Pages serves the root of `main`.
 
 ## Edit copy
 
-All visible text lives in `index.html`. Search for `REPLACE:` comments to find:
+All text lives in `index.html`. Search for `REPLACE` comments:
 
-- name, headline, and one-line pitch in the hero
-- about paragraphs
-- experience roles
-- project cards
-- writing entries
-- the optional portrait (`assets/portrait.jpg`)
+- page title, name, headline, pitch
+- About paragraphs
+- Studies and work roles
+- Project cards
+- Hobbies (books, places, and short notes)
 
-Change the `<title>` and meta description in the `<head>` at the same time as the name.
+Optional portrait: uncomment the `hero-photo` block and add `assets/portrait.jpg`.
 
 ## Add a project link
 
-1. Fill in a card in the Projects section (or copy an existing `<article class="card">`).
-2. Point it somewhere:
-   - **External URL:** change the card to `<a class="card card-link" href="https://…">…</a>`
-   - **Page on this site:** add `projects/your-project.html` and use `href="projects/your-project.html"`
-3. Close with `</a>` instead of `</article>`.
+1. Fill in a card in the Projects section (or duplicate an `<article class="project-card">`).
+2. Uncomment the “View project” line and set `href`:
+   - a page in this repo: `projects/your-project.html`
+   - or any external URL
+3. To add a write-up here, put an HTML file in `projects/` (FairOdds example: `projects/fairodds.html`).
 
-The same pattern works in Writing: wrap the inner markup of a `.writing-item` in `<a href="writing/slug.html">`.
-
-`assets/` is for a portrait or project images later.
+Writing is commented out in `index.html` for now. Uncomment the nav link and the Writing section to restore it.
 
 ## Local preview
 
 ```bash
-python -m http.server 8080
+py -m http.server 8080
 ```
 
 Open http://localhost:8080

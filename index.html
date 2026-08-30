@@ -5,146 +5,263 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- REPLACE: page title -->
   <title>Benjamin Nicholson</title>
-  <!-- REPLACE: meta description -->
-  <meta name="description" content="Selected work and writing from Benjamin Nicholson.">
+  <meta name="description" content="Personal site of Benjamin Nicholson — work, projects, and writing.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
-    <a class="wordmark" href="#top">Benjamin Nicholson</a>
-    <nav class="site-nav" aria-label="Page sections">
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#writing">Writing</a></li>
-      </ul>
-    </nav>
+    <div class="wrap site-header__inner">
+      <a class="site-mark" href="#top">BN</a>
+      <nav class="site-nav" aria-label="Page">
+        <a href="#about">About</a>
+        <a href="#studies">Studies</a>
+        <a href="#projects">Projects</a>
+        <!-- <a href="#writing">Writing</a> -->
+        <a href="#hobbies">Hobbies</a>
+        <a href="#work">Work</a>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
-    <section class="hero" id="top" aria-labelledby="name">
-      <!--
-        REPLACE: optional photo
-        Uncomment the image below and add assets/portrait.jpg
-        <img class="hero-photo" src="assets/portrait.jpg" alt="Portrait of Benjamin Nicholson" width="120" height="120">
-      -->
-      <p class="eyebrow">Hello</p>
-      <!-- REPLACE: name -->
-      <h1 id="name">Benjamin Nicholson</h1>
-      <!-- REPLACE: headline -->
-      <p class="headline">Data / Python practitioner</p>
-      <!-- REPLACE: one-line pitch -->
-      <p class="pitch">I turn messy questions into tools and analyses that other people can actually use.</p>
-    </section>
-
-    <section id="about" aria-labelledby="about-heading">
-      <h2 id="about-heading">About</h2>
-      <div class="prose">
-        <!-- REPLACE: about paragraph 1 -->
-        <p>A short bio belongs here — who you are, what you work on, and the kind of problems you like. Two or three sentences is enough; this page should complement a resume, not repeat it.</p>
-        <!-- REPLACE: about paragraph 2 -->
-        <p>Use this paragraph for context a hiring manager will not get from a CV: how you think, what you are learning, or the thread that runs through your work. Keep it specific and in your own voice.</p>
-        <!-- REPLACE: about paragraph 3 -->
-        <p>A final line can point toward what you want next — a role, a domain, or the kind of collaboration you are looking for — without turning the page into a cover letter.</p>
+    <section class="hero" id="top">
+      <div class="wrap">
+        
+          
+          <figure class="hero-photo">
+            <img src="assets/portrait.jpg" alt="Portrait of Benjamin Nicholson">
+          </figure>
+        
+        <!-- REPLACE: name -->
+        <h1 class="hero-name">Benjamin Nicholson</h1>
+        <!-- REPLACE: headline -->
+        <p class="hero-headline">Mathematician / Salesman</p>
+        <!-- REPLACE: one-line pitch -->
+        <p class="hero-pitch">This is a collection of my projects, writings and other things.</p>
       </div>
     </section>
 
-    <section id="experience" aria-labelledby="experience-heading">
-      <h2 id="experience-heading">Experience</h2>
-      <ol class="timeline">
-        <!-- REPLACE: role 1 -->
-        <li class="role">
-          <div class="role-header">
-            <h3>Role title</h3>
-            <p class="meta"><span>Organisation</span><span class="dates">2024 — Present</span></p>
-          </div>
-          <ul>
-            <li>One concrete outcome or responsibility, written as a summary rather than a full job dump.</li>
-            <li>A second line on tools, scope, or the problem you were hired to solve.</li>
-          </ul>
-        </li>
-        <!-- REPLACE: role 2 -->
-        <li class="role">
-          <div class="role-header">
-            <h3>Earlier role</h3>
-            <p class="meta"><span>Organisation</span><span class="dates">2022 — 2024</span></p>
-          </div>
-          <ul>
-            <li>What you built, analysed, or shipped, in one sentence.</li>
-            <li>Who it was for, and why it mattered.</li>
-          </ul>
-        </li>
-        <!-- REPLACE: role 3 -->
-        <li class="role">
-          <div class="role-header">
-            <h3>Earlier still</h3>
-            <p class="meta"><span>Organisation</span><span class="dates">2020 — 2022</span></p>
-          </div>
-          <ul>
-            <li>A brief note on the work — keep it to the highlights a resume already covers in more detail.</li>
-            <li>Optional: a skill or domain you want a reader to remember.</li>
-          </ul>
-        </li>
-      </ol>
-    </section>
-
-    <section id="projects" aria-labelledby="projects-heading">
-      <h2 id="projects-heading">Projects</h2>
-      <p class="section-lead">Selected work. Cards below can become links to a write-up or a live demo when you are ready.</p>
-      <div class="project-grid">
-        <!-- REPLACE: project 1 — FairOdds (add href on the article when you re-host it) -->
-        <article class="card">
-          <p class="card-kicker">Analysis</p>
-          <h3>FairOdds <span class="card-status">(under construction)</span></h3>
-          <p>A client-side analysis of NBA player-prop prices across bookmakers — comparing odds, surfacing outliers, and illustrating why advertised prices are rarely good value.</p>
-        </article>
-        <!--
-          REPLACE: project 2
-          To link this card, change <article class="card"> to
-          <a class="card card-link" href="projects/slug.html">
-          and close with </a> instead of </article>
-        -->
-        <article class="card">
-          <p class="card-kicker">Simulation</p>
-          <h3>Productivity Simulator <span class="card-status">(under construction)</span></h3>
-          <p>A simulation of how productivity affects the average wait times for a call centre struggling in a low-lead environment.</p>
-        </article>
-        <!-- REPLACE: project 3 -->
-        <article class="card">
-          <p class="card-kicker">Analysis</p>
-          <h3>Money.com.au cancellation analytics</h3>
-          <p>An analysis of how much money the money.com.au health insurance department is losing due to cancellations, and why.</p>
-        </article>
+    <section class="section" id="about">
+      <div class="wrap">
+        <h2>About</h2>
+        <!-- REPLACE: about -->
+        <p>
+          I am a mathematics student at the University of Queensland. I've studied mechanical engineering for a few years before switching over to mathematics. 
+        </p>
+        <p>
+          I've worked in sales for a few years, selling health insurance on the phone, which has given me a unique ability to communicate complicated ideas 
+          in a very simple way. 
+        </p>
+        <p>
+          My current area of interest is in quantitative modelling of financial markets. I'm currently working on a sports-betting trading strategy that leverages
+          the discrepancies between the odds offered by different bookmakers for the same event.
+        </p>
       </div>
     </section>
 
-    <section id="writing" aria-labelledby="writing-heading">
-      <h2 id="writing-heading">Writing</h2>
-      <ul class="writing-list">
-        <!--
+    <section class="section" id="studies">
+      <div class="wrap">
+        <h2>Studies</h2>
+        <ol class="timeline">
+          <li class="timeline-item">
+            <div class="timeline-item__head">
+              <h3>Mathematics</h3>
+              <p class="timeline-item__meta">
+                <span>University of Queensland</span>
+                <span>Present</span>
+              </p>
+            </div>
+            <ul>
+              <li>Current undergraduate studies, after switching from mechanical engineering.</li>
+            </ul>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-item__head">
+              <h3>Mechanical Engineering</h3>
+              <p class="timeline-item__meta">
+                <span>Prior study</span>
+              </p>
+            </div>
+            <ul>
+              <li>A few years of coursework before moving into mathematics.</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="wrap wrap--wide">
+        <h2>Projects</h2>
+        <p class="section-lede">
+          A few pieces of work. Cards can later link to a write-up in
+          <code>projects/</code> or to an external URL.
+        </p>
+        <div class="project-grid">
+          <!-- REPLACE: project 1 — add href on the title when there is a page or URL -->
+          <article class="project-card">
+            <p class="project-card__meta">Under construction</p>
+            <h3>FairOdds</h3>
+            <p>
+              A static app for comparing NBA player-prop prices across bookmakers:
+              value flags, Over/Under arbitrage, and charts of how far a price sits
+              from the market mean.
+            </p>
+            <!-- <p><a href="projects/fairodds.html">View project</a></p> -->
+          </article>
+          <!-- REPLACE: project 2 -->
+          <article class="project-card">
+            <p class="project-card__meta">Under construction</p>
+            <h3>Productivity Simulator</h3>
+            <p>
+              A simulation of how productivity affects the average wait times for a
+              call centre struggling in a low-lead environment.
+            </p>
+            <!-- <p><a href="projects/slug.html">View project</a></p> -->
+          </article>
+          <!-- REPLACE: project 3 -->
+          <article class="project-card">
+            <p class="project-card__meta">Analysis</p>
+            <h3>Money.com.au cancellation analytics</h3>
+            <p>
+              An analysis of how much money the money.com.au health insurance
+              department is losing due to cancellations, and why.
+            </p>
+            <!-- <p><a href="https://github.com/you/repo">View project</a></p> -->
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    Writing — uncomment this section and the nav link above to restore.
+
+    <section class="section" id="writing">
+      <div class="wrap">
+        <h2>Writing</h2>
+        <p class="section-lede">
+          Notes and longer pieces. Wrap a title in a link when the post is ready
+          (<code>writing/slug.html</code> or an external URL).
+        </p>
+        <ul class="writing-list">
           REPLACE: writing 1
-          To link an entry, wrap the inner markup in
-          <a href="writing/slug.html"> … </a>
-        -->
-        <li>
-          <article class="writing-item">
-            <h3>A note on comparing prices</h3>
-            <p class="meta"><time datetime="2025-12">December 2025</time></p>
-            <p>Placeholder for a short essay, note, or explainer. Replace the title and date, then add a link when the piece lives at writing/slug.html or elsewhere.</p>
-          </article>
-        </li>
-        <!-- REPLACE: writing 2 -->
-        <li>
-          <article class="writing-item">
-            <h3>Title of a second piece</h3>
-            <p class="meta"><time datetime="2025-06">June 2025</time></p>
-            <p>A one-line description of what the reader will find. Keep the list short; this is a pointer, not an archive.</p>
-          </article>
-        </li>
-      </ul>
+          <li>
+            <span class="writing-list__title">A note on comparing prices, not picking winners</span>
+            <time datetime="2025-12" class="writing-list__date">Dec 2025</time>
+            wrap the title: <a href="writing/comparing-prices.html">...</a>
+          </li>
+          REPLACE: writing 2
+          <li>
+            <span class="writing-list__title">Placeholder: a short essay title</span>
+            <time datetime="2026-03" class="writing-list__date">Mar 2026</time>
+          </li>
+          REPLACE: writing 3
+          <li>
+            <span class="writing-list__title">Placeholder: another title worth clicking</span>
+            <time datetime="2026-06" class="writing-list__date">Jun 2026</time>
+          </li>
+        </ul>
+      </div>
+    </section>
+    -->
+
+    <section class="section" id="hobbies">
+      <div class="wrap">
+        <h2>Hobbies</h2>
+
+        <article class="hobby">
+          <h3>Basketball</h3>
+          <!-- REPLACE: basketball -->
+          <p>A sentence about how you play, watch, or follow the game.</p>
+        </article>
+
+        <article class="hobby">
+          <h3>Guitar</h3>
+          <!-- REPLACE: guitar -->
+          <p>A sentence about what you play, or why you picked it up.</p>
+        </article>
+
+        <article class="hobby">
+          <h3>Reading</h3>
+          <p class="hobby-lede">
+            Duplicate a block below for each book. Title first, then a few sentences of notes.
+          </p>
+          <ul class="note-list">
+            <!-- REPLACE: book — duplicate the list item below for each one -->
+            <li>
+              <p class="note-list__title">Book title</p>
+              <p class="note-list__body">What stayed with you, what you disagreed with, or why you’d recommend it.</p>
+            </li>
+            <li>
+              <p class="note-list__title">Book title</p>
+              <p class="note-list__body">A second slot. Replace this with your notes, or delete the block.</p>
+            </li>
+          </ul>
+        </article>
+
+        <article class="hobby">
+          <h3>Travelling</h3>
+          <p class="hobby-lede">
+            Duplicate a block below for each place.
+          </p>
+          <ul class="note-list">
+            <!-- REPLACE: place — duplicate the list item below for each one -->
+            <li>
+              <p class="note-list__title">Place name</p>
+              <p class="note-list__body">When you went, and a note on what it was like.</p>
+            </li>
+            <li>
+              <p class="note-list__title">Place name</p>
+              <p class="note-list__body">Another slot. Replace this, or delete it.</p>
+            </li>
+          </ul>
+        </article>
+
+        <article class="hobby">
+          <h3>Gym</h3>
+          <!-- REPLACE: gym -->
+          <p>A sentence about how you train, or what you get out of it.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="wrap">
+        <h2>Work</h2>
+        <ol class="timeline">
+          <li class="timeline-item">
+            <div class="timeline-item__head">
+              <h3>Health Insurance Sales Consultant (Outbound)</h3>
+              <p class="timeline-item__meta">
+                <span>money.com.au</span>
+                <time datetime="2026-01">January 2026 – Present</time>
+              </p>
+            </div>
+            <ul>
+              <li>Conduct outbound consultations to assess client health insurance requirements, probing individual needs to pitch and close custom-curated policies efficiently.</li>
+            </ul>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-item__head">
+              <h3>Sales Team Leader &amp; Outbound Consultant</h3>
+              <p class="timeline-item__meta">
+                <span>Compare The Market</span>
+              </p>
+              <p class="timeline-item__meta">
+                <span>Team Leader: Sept 2024 – July 2025</span>
+                <span>Consultant: June 2022 – Sept 2024, July 2025 – Present</span>
+              </p>
+            </div>
+            <ul>
+              <li><strong>Leadership &amp; Operations:</strong> Managed outbound call center consultants to maximize profitability across key metrics (contact conversion, annual GWP, sales volume). Analyzed reporting data to implement strategic improvements and upskilled staff through tailored 1-on-1 and group coaching.</li>
+              <li><strong>Direct Sales Excellence:</strong> Gathered customer requirements, structured high-impact sales pitches, and consistently surpassed rigorous business conversion targets.</li>
+              <li><strong>Key Achievements:</strong> Ranked 1st place on the CTM sales leaderboard (March 2024); set the all-time highest single-month contact conversion record (60.1% in June 2024); placed Top 5 in percentage over sales target across the entire call center (FY23–24).</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
     </section>
   </main>
 </body>
