@@ -295,25 +295,8 @@ body:has(#work:target) .site-nav a[href="#work"] {
   color: var(--muted);
 }
 
-a.project-card {
-  color: inherit;
-  text-decoration: none;
-}
-
-a.project-card:hover,
-a.project-card:focus-visible {
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
-  color: inherit;
-}
-
 .project-card__cta {
   margin-top: 0.9rem;
-  color: var(--accent);
-}
-
-a.project-card:hover .project-card__cta,
-a.project-card:focus-visible .project-card__cta {
-  text-decoration: underline;
 }
 
 .writeup {
