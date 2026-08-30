@@ -295,6 +295,131 @@ body:has(#work:target) .site-nav a[href="#work"] {
   color: var(--muted);
 }
 
+a.project-card {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.project-card:hover,
+a.project-card:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  color: inherit;
+}
+
+.project-card__cta {
+  margin-top: 0.9rem;
+  color: var(--accent);
+}
+
+a.project-card:hover .project-card__cta,
+a.project-card:focus-visible .project-card__cta {
+  text-decoration: underline;
+}
+
+.writeup {
+  padding: 2.5rem 0 5rem;
+}
+
+.writeup-kicker {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.writeup h1 {
+  font-size: clamp(1.85rem, 4vw, 2.55rem);
+  margin: 0 0 0.75rem;
+}
+
+.writeup-lede {
+  margin: 0 0 1.75rem;
+  color: var(--muted);
+  font-size: 1.12rem;
+}
+
+.writeup h2 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--text);
+  margin: 2.25rem 0 0.85rem;
+}
+
+.writeup ol {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+}
+
+.writeup li + li {
+  margin-top: 0.4rem;
+}
+
+.writeup blockquote {
+  margin: 0 0 1rem;
+  padding: 0.15rem 0 0.15rem 1rem;
+  border-left: 2px solid var(--line);
+  color: var(--text);
+}
+
+.writeup blockquote p {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+}
+
+.writeup figure {
+  margin: 1.35rem 0 1.6rem;
+}
+
+.writeup figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.writeup figcaption {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.figure-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.35rem 0 1.6rem;
+}
+
+.figure-grid figure {
+  margin: 0;
+}
+
+.writeup-answers {
+  margin: 0 0 2rem;
+}
+
+.writeup-answers dt {
+  font-weight: 600;
+}
+
+.writeup-answers dd {
+  margin: 0.25rem 0 1rem;
+  color: var(--muted);
+}
+
+.writeup-back {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
 .writing-list {
   list-style: none;
   margin: 0;
@@ -386,6 +511,10 @@ body:has(#work:target) .site-nav a[href="#work"] {
   .project-card {
     display: flex;
     flex-direction: column;
+  }
+
+  .figure-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
