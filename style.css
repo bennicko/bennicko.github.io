@@ -292,6 +292,15 @@ section h2 {
   font-size: 1.2rem;
 }
 
+.card-status {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0;
+  color: var(--faint);
+}
+
 .card p:not(.card-kicker) {
   margin-top: 0.55rem;
   color: var(--muted);
