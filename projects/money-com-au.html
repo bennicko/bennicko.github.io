@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Money.com.au cancellation analytics — Benjamin Nicholson</title>
+  <meta name="description" content="Who to target, how spend changes with age, and why policy push-outs drive cancellations at money.com.au.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="site-mark" href="../index.html">BN</a>
+      <nav class="site-nav" aria-label="Site">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#studies">Studies</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#hobbies">Hobbies</a>
+        <a href="../index.html#work">Work</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="writeup">
+    <article class="wrap">
+      <p class="writeup-kicker">Project write-up</p>
+      <h1>Money.com.au cancellation analytics</h1>
+      <p class="writeup-lede">Who the call centre should target, how spend changes with age, and why pushing a start date out past five days more than doubles cancellations.</p>
+
+      <p>I want to start by painting a picture. money.com.au, the business I’m currently employed with, is wanting to create a profitable call centre selling health insurance. The business model is similar to ones you may already be familiar with — call people, compare their policy against the market, get paid a commission from the fund for doing it. Some of the big companies, such as CompareTheMarket, iSelect, and the rest, have huge brand recognition and huge bankrolls. They can bully their way around the comparison space. The little dogs, like Money, do not have such luxuries. Despite being a cool URL, money.com.au is going to have a very difficult time breaking into the industry from a brand recognition perspective. Therefore, it is important to pinch as many pennies as possible.</p>
+
+      <p>Before I joined the business, the approach was what they call a “shotgun approach”: advertise to everyone, dial hard, sell what we can. Immediately I recognised that this must not be the most effective tactic. Surely it would be more effective to target specific demographics — given that older people, for example, need more comprehensive coverage than a man in his 20s, there must be some optimisation possible here.</p>
+
+      <p>I told my boss that I’m a budding mathematician, and I’m looking for some personal projects to build my portfolio. I asked him one question:</p>
+
+      <blockquote>
+        <p>What are the biggest opportunities for this call centre at the moment?</p>
+      </blockquote>
+
+      <p>He immediately rattled off a few:</p>
+      <ol>
+        <li>Currently, we have no idea the types of people we sell to. What age demographic is the most effective to target?</li>
+        <li>As an extension of this, how do different demographics spend their money?</li>
+        <li>We’re getting killed by cancellations at the moment. Are there any common trends in cancellations?</li>
+      </ol>
+
+      <p>With his blessing, I downloaded all of the sales data available to me and got stuck in. With that, let’s begin.</p>
+
+      <h2>Who should we target?</h2>
+      <p>First question: who should we target in the future? To answer that, let’s look at the past. I had a look at all data of people who’ve made an enquiry, sorted by age, and plotted this against the sales made.</p>
+
+      <div class="figure-grid">
+        <figure>
+          <img src="money-com-au/leads-vs-sales-all.png" alt="Line chart of leads versus sales by age for all policy types. Leads peak in the mid-30s; sales stay low across ages.">
+          <figcaption>Leads vs sales by age — all types</figcaption>
+        </figure>
+        <figure>
+          <img src="money-com-au/leads-vs-sales-single.png" alt="Line chart of leads versus sales by age for singles. Leads spike around age 25; sales remain flat and low.">
+          <figcaption>Leads vs sales by age — single</figcaption>
+        </figure>
+        <figure>
+          <img src="money-com-au/leads-vs-sales-couples.png" alt="Line chart of leads versus sales by age for couples. Leads peak in the mid-20s; sales stay much lower.">
+          <figcaption>Leads vs sales by age — couples</figcaption>
+        </figure>
+        <figure>
+          <img src="money-com-au/leads-vs-sales-family.png" alt="Line chart of leads versus sales by age for families. Leads peak around age 25; sales stay low across the range.">
+          <figcaption>Leads vs sales by age — family</figcaption>
+        </figure>
+      </div>
+
+      <p>What immediately becomes obvious is that advertising to people in their 20s through 40s seems to be ineffective. If it were effective, the red line would sit substantially closer to the blue line.</p>
+
+      <p>There are some obvious limitations of these charts. A keen observer may notice that for the Family chart, the red line intersects and crosses the blue line. That is a limitation of how ages are stored in the CRM our business uses. Often it is blank. Often it defaults their birthday to 01/01/1991. These numbers are only pulled from specific lead sources, as we are investigating only the organic, outbound leads. I had to do a fair bit of cleaning of this data to make it anywhere close to useful.</p>
+
+      <p>The natural extension of this question, then, is: are we actually talking to these young people? It appears yes. They’re just not buying anything. Breaking down the “why” behind this is beyond the scope of this analysis.</p>
+
+      <figure>
+        <img src="money-com-au/leads-by-age-september.png" alt="Line chart of September 2025 leads by age, split into all leads, successful contact, and closed comparison. Contact follows the lead curve; closed comparisons stay low.">
+        <figcaption>Leads by age — September 2025: all leads, successful contact, and closed comparison</figcaption>
+      </figure>
+
+      <p>Still, the conclusion is obvious — target an older demographic. This becomes clear when looking at the average spend of each age group.</p>
+
+      <figure>
+        <img src="money-com-au/average-premium-by-age.png" alt="Line chart of average gross annual premium by age, rising from the 40s and peaking above $7,000 around age 80.">
+        <figcaption>Average gross annual premium by age</figcaption>
+      </figure>
+
+      <p>This answers questions 1 and 2.</p>
+
+      <h2>What’s the deal with all these cancellations?</h2>
+      <p>Sales is more an art than a science, but it is helpful to muse on the psychology of a customer for this exercise. My suspicion was that cancellations were a function of a few different things: health funds retaining their customers, people getting cold feet, or people unhappy with the purchase. The problem with targeting an older demographic is that, very often, they’ve been with the same fund for many years. It is therefore extremely easy for the original provider to tug the heartstrings of their client, soften them up, throw them a temporary discount, and keep their business. To be honest, there’s not a lot you can do from a mathematical perspective to prevent this. We end our sales calls by prepping the client for a retention call from their fund, but that is beyond the scope of this analysis.</p>
+
+      <p>What I wanted first to do was look into how many sales are made by using a “push-out” — starting the policy on a day that isn’t the same day we’re talking to the client — and whether this correlates to an uptick in cancellations.</p>
+
+      <figure>
+        <img src="money-com-au/cancellations-by-pushout.png" alt="Histogram of cancellations by days between sold date and policy start, with a large spike at zero days and another around day 14.">
+        <figcaption>Cancellations by days between sold date and start</figcaption>
+      </figure>
+      <figure>
+        <img src="money-com-au/sales-and-cancellations-by-pushout.png" alt="Histogram comparing sales and cancellations by days from start to sold. Sales spike at day zero; cancellations also cluster at zero and around day 14.">
+        <figcaption>Sales and cancellations by days from start to sold</figcaption>
+      </figure>
+      <figure>
+        <img src="money-com-au/cancellations-pushout-min-one-day.png" alt="Histogram of cancellations for sales with at least a one-day push-out, peaking around a 14-day delay.">
+        <figcaption>Cancellations when the start date is pushed out by at least one day</figcaption>
+      </figure>
+
+      <p>The easy win here is to stop pushing out sales by two weeks. It seems that any push-out further than five days more than doubles the likelihood of the customer cancelling.</p>
+
+      <p>(A keen observer may also notice that there seem to be more cancellations at the 14-day mark than there are sales made. This is not lost on me, nor is this an error in the data. I know the answer to why this is true, but I cannot disclose it here. Perhaps ask me personally for more information on this.)</p>
+
+      <h2>Answers</h2>
+      <dl class="writeup-answers">
+        <dt>What age demographic is the most effective to target?</dt>
+        <dd>Older people, 60+.</dd>
+        <dt>How do different demographics spend their money?</dt>
+        <dd>Older people spend more money and are, statistically, easier to sell to.</dd>
+        <dt>Are there any common trends in cancellations?</dt>
+        <dd>Any push-out past five days doubles the rate of cancellations.</dd>
+      </dl>
+
+      <p class="writeup-back"><a href="../index.html#projects">Back to projects</a></p>
+    </article>
+  </main>
+</body>
+</html>
