@@ -497,7 +497,7 @@ body:has(#work:target) .site-nav a[href="#work"] {
   }
 
   .project-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 1.1rem;
   }
 
