@@ -22,7 +22,7 @@ Optional portrait: uncomment the `hero-photo` block and add `assets/portrait.jpg
 2. Uncomment the “View project” line and set `href`:
    - a page in this repo: `projects/your-project.html`
    - or any external URL
-3. To add a write-up here, put an HTML file in `projects/` (FairOdds example: `projects/fairodds.html`).
+3. To add a write-up here, put an HTML file in `projects/` (FairOdds: `projects/fairodds.html`, with the arb table fed by `projects/fairodds-arbs.js`).
 
 Writing is commented out in `index.html` for now. Uncomment the nav link and the Writing section to restore it.
 

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FairOdds — Benjamin Nicholson</title>
+  <meta name="description" content="A write-up of FairOdds: why sports betting prices are unfair, how alternate NBA lines differ across books, and the closing-line arbs that showed up across 328 games.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="site-mark" href="../index.html">BN</a>
+      <nav class="site-nav" aria-label="Page">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#projects">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="article">
+      <header class="article-hero">
+        <div class="wrap">
+          <p class="article-kicker">Project write-up</p>
+          <h1>FairOdds</h1>
+          <p class="article-sub">How to make money betting on sports</p>
+        </div>
+      </header>
+
+      <div class="wrap prose">
+        <p>
+          This is my write-up for my project, FairOdds. This will be a quick overview of what the project is, how it came to be, and what I learned along the way.
+        </p>
+
+        <h2>Some lingo</h2>
+        <p>I’ll be using a few terms throughout this piece, for the reader who is not a gambler:</p>
+        <dl class="glossary">
+          <div>
+            <dt>Sportsbook</dt>
+            <dd>A place you can place bets (SportsBet, Ladbrokes, TAB, etc.).</dd>
+          </div>
+          <div>
+            <dt>Line</dt>
+            <dd>A value that an outcome must exceed (e.g. if I bet on Steph Curry to hit over 3.5 threes, my bet wins if he hits 4 or more 3-pointers).</dd>
+          </div>
+          <div>
+            <dt>Price</dt>
+            <dd>How much a result is paying (Steph Curry over 3.5 threes @2.00 means I get paid $2 for every $1 I bet on this line).</dd>
+          </div>
+        </dl>
+      </div>
+
+      <section class="prose-block">
+        <div class="wrap prose">
+          <h2>Part 1 — Why you can never make money betting on sports</h2>
+          <p>
+            Australia has always had a very big gambling culture, with sportsbooks available on your phone at all times, with a market available for pretty much anything you want to bet on. I have a lot of good friends who love having a punt (perhaps too much).
+          </p>
+          <p>
+            The idea for FairOdds started with an observation that America is currently going through a sports-betting gold rush (for lack of a better term). In this rush, there are many, many sportsbooks all competing for the same wallet share of potential gamblers. To compete with each other, sportsbooks offer crazier and crazier promotions to entice potential customers to bet with them instead of a competitor.
+          </p>
+          <p>
+            I’m a big fan of the NBA, I love watching the games, and I also spent time looking at sports-betting odds as an indicator of who was likely to win a certain match-up. I like knowing the odds that underdogs were paying in the event of an upset.
+          </p>
+          <p>
+            One thing I noticed is that the price for the main lines were pretty much the same across all these sportsbooks. If it was a good match-up, both teams would be paying roughly $1.90. This presents a quick opportunity to talk about the mathematics of why sports-betting is a bad investment strategy. You’re probably familiar with the expression “the house always wins”, and a toddler on the street could tell you why: they don’t play fair.
+          </p>
+          <p>
+            If they did play fair, two teams who are equiprobable to win would both be paying $2.00. The formula to calculate the “implied odds” of a bet is
+            <span class="formula" role="math" aria-label="P implied equals 1 over decimal odds"><em>P</em><sub>implied</sub> = 1 / odds<sub>decimal</sub></span>.
+            Not super complicated, but it becomes immediately clear that two teams with a 50% chance of winning, both paying $1.90, guarantees that the sportsbook makes money regardless of outcome.
+          </p>
+          <p>This is true of all lines, and if you only take one thing from this write-up, I hope it’s this:</p>
+          <blockquote>
+            Being good at sports betting has absolutely nothing to do with your sports knowledge. It is only to do with your pricing knowledge.
+          </blockquote>
+          <p>
+            You can be super sure that there’s a 90% chance LeBron is going to drop 25 tonight, but if it’s priced as if there’s an 80% chance, then over 100 bets, you are losing. It does not matter what you think is going to happen if it is not priced appropriately.
+          </p>
+          <p>
+            Imagine you’ve got access to information on how 4 different sportsbooks are pricing a particular event. You’ve got no idea what the event is, who is playing, what country it’s in.
+          </p>
+
+          <table class="odds-table">
+            <caption>Four books, same event, no other information</caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Book 1</th>
+                <th>Book 2</th>
+                <th>Book 3</th>
+                <th>Book 4</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Team A</th>
+                <td>$1.70</td>
+                <td>$1.69</td>
+                <td>$1.01</td>
+                <td>$1.72</td>
+              </tr>
+              <tr>
+                <th scope="row">Team B</th>
+                <td>$1.95</td>
+                <td>$1.94</td>
+                <td class="odds-table__hit">$5.00</td>
+                <td>$1.91</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            Even though it seems like Team B is the underdog, I’m taking the bet on Team B, book 3, 10/10 times. There’s clearly a price mismatch, and even if they lose, this is the mathematically correct bet to take.
+          </p>
+          <p>
+            One thing that was immediately obvious was that prices for the winner of an event, the total over/under for an event, points/rebounds/assists over/under for each of the main players in the event, were pretty much uniform across all the bookmakers. What was interesting, though, is just how many bets these bookmakers were offering. You can pick your own margin, pick your own points line; on any given event there’s a thousand different bets being offered by hundreds of different bookmakers. And my key observation was, for anything outside of the main lines, all the bookmakers priced these things differently. You would have one book maker offering Josh Giddey over 25.5 at $3.50, and another offering it at $5.00.
+          </p>
+          <p>
+            And so this idea hatched in my mind and I just couldn’t seem to shake it — with all these different bookmakers offering all these different bets at all these different prices, surely there must exist some way to determine a way to make money.
+          </p>
+          <p>
+            Beating the bookmakers is a pipe-dream. If I had a dollar for every one of my mates who had a “system” for making money gambling I wouldn’t have any incentive to be trying to make money sports betting. Still, though, this idea gnawed away at me until one day, I decided to give it a go. With this out of the way, let’s get into it.
+          </p>
+        </div>
+      </section>
+
+      <section class="prose-block">
+        <div class="wrap prose">
+          <h2>Part 2 — How to make money betting on sports</h2>
+          <p>
+            The challenge with beating the house is that these bookmakers clearly have some sort of system, or information, that we do not have access to. They’ve clearly got some super-nerds who sit and analyse this stuff for a living, and as an outsider, trying to derive their formula from first principles would be both cumbersome and probably a waste of time.
+          </p>
+          <p>
+            My hypothesis, simply put, was this: these guys have all the information, which informs how they price lines. What that information is, how they get it, is academic; if I can find a way to quickly aggregate the average price across a wide range of sports-books, then by the law of large numbers, this can be used to quickly identify what books are outliers. If there’s a book that has their price substantially higher than the market average, this might be an indicator that this is a “good” bet.
+          </p>
+          <p>With this established, let’s go over my approach.</p>
+          <ol>
+            <li>Find a way to aggregate data across sportsbooks.</li>
+            <li>Filter this data, taking the “mean price” of each sportsbook, and flagging books that had a price that were more than two standard deviations away from the mean.</li>
+          </ol>
+          <p>
+            This approach was not fruitful, over two months of testing. It managed to find plenty of bets that were 7, 8, 10% higher than the market average, but over two months of tracking in a spreadsheet I consistently lost money over time.
+          </p>
+          <p>
+            What I did find, though, was an absolute holy grail for printing money — arbitrage bets exist everywhere, all the time.
+          </p>
+        </div>
+      </section>
+
+      <section class="prose-block" id="arbs">
+        <div class="wrap prose">
+          <h2>Part 3 — Arbitrage betting</h2>
+          <p>
+            An arbitrage bet is betting on both sides of an outcome so that you get paid regardless of the outcome. Typically, betting on both sides of an outcome is a way to guarantee that you lose. If, however, two books have priced the same line in such a way that allows you to bet on both outcomes, then, as long as you stake correctly, you are guaranteed to make money. What I’ve found is that the boom of all these bookmakers pricing alternative lines differently creates an environment ripe for arb’ing. Here is an overview of what I’ve found:
+          </p>
+        </div>
+
+        <div class="wrap wrap--board">
+          <div class="arb-board">
+            <div class="arb-board__intro">
+              <h3>Closing alt-ladder arbs, 328 NBA games</h3>
+              <p>
+                Points, rebounds and assists alternate markets, Australian and US books, closing snapshot only. Same player, same line: 1/best-over + 1/best-under below 1.00.
+              </p>
+            </div>
+
+            <div class="stat-grid" id="arb-stats"></div>
+
+            <div class="callout">
+              <p class="callout__title">FanDuel and SportsBet are the under; TAB, Ladbrokes and BetRivers are the over</p>
+              <p id="arb-under-note"></p>
+            </div>
+
+            <div class="arb-split">
+              <div>
+                <h4>Edge size, 906 same-line arbs</h4>
+                <div class="bar-chart" id="arb-bins" aria-label="Count of arbs by edge size"></div>
+                <p class="chart-caption">
+                  Horizontal axis: screenshot edge 1 − (1/over + 1/under). Source: The Odds API historical event odds, markets player_points_alternate, player_rebounds_alternate, player_assists_alternate, regions au + us, 21 Oct–4 Dec 2025.
+                </p>
+              </div>
+              <div class="kv-card">
+                <h4>By market</h4>
+                <div id="arb-markets"></div>
+                <p class="chart-caption">Median books quoting the arb’d rung: 11. These are not two-book leftovers.</p>
+              </div>
+            </div>
+
+            <div class="arb-table-block">
+              <div class="arb-table-head">
+                <h4>Every found arb</h4>
+                <p id="arb-count" class="arb-count"></p>
+              </div>
+              <div class="arb-toolbar">
+                <label class="arb-field">
+                  <span>Search</span>
+                  <input id="arb-search" type="search" placeholder="Player, book, team…">
+                </label>
+                <label class="arb-field">
+                  <span>Market</span>
+                  <select id="arb-market">
+                    <option value="">All</option>
+                    <option value="Points">Points</option>
+                    <option value="Reb">Rebounds</option>
+                    <option value="Ast">Assists</option>
+                  </select>
+                </label>
+                <label class="arb-field">
+                  <span>Min edge</span>
+                  <select id="arb-min-edge">
+                    <option value="0">All</option>
+                    <option value="0.01">1%+</option>
+                    <option value="0.02">2%+</option>
+                    <option value="0.04">4%+</option>
+                    <option value="0.08">8%+</option>
+                  </select>
+                </label>
+              </div>
+              <div class="arb-table-wrap" tabindex="0">
+                <table class="arb-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Matchup</th>
+                      <th>Player</th>
+                      <th>Market</th>
+                      <th class="num">Books</th>
+                      <th>Over</th>
+                      <th>Under</th>
+                      <th class="num">Edge</th>
+                    </tr>
+                  </thead>
+                  <tbody id="arb-body"></tbody>
+                </table>
+              </div>
+              <p class="chart-caption">
+                Sorted by edge. Jackson-Davis vs Golden State on 19 Nov is one player’s points ladder misaligned between two Australian books. A cost below 1.00 is the screenshot, not a fill.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="prose-block">
+        <div class="wrap prose">
+          <h2>Part 4 — Limitations of the model</h2>
+          <p>
+            Obviously, there’s no such thing as a get rich quick scheme. There are several limitations preventing me from buying that private islands I’ve had my eye on.
+          </p>
+          <ol class="limit-list">
+            <li>
+              <strong>Speed.</strong> These bookmakers are not that stupid. I found that, within minutes (sometimes seconds) of finding these opportunities, bookmakers had adjusted their odds. This creates some inherent risk — making guaranteed profit requires a huge stake for quite a small return, and if the bookies change their odds, the potential loss is very high, which leads naturally to,
+            </li>
+            <li>
+              <strong>Required bankroll.</strong> The majority of the arbitrages found were a margin of about 1%. What that means is that if I want to make $100, I’d need to be staking $10,000. The best arb I found all year had a 15.6% edge. The majority of arbs that I found (95.4%, to be exact) were between a 1% to 4% edge. To make $400 I’d need to be staking $10,000. If I had $10,000, I’d be better off whacking it into the S&amp;P 500.
+            </li>
+            <li>
+              <strong>Cost of the model.</strong> I paid for an API that tracked these numbers. If I wanted to run this model for a full season, it would cost me far more than what I would make with my bankroll.
+            </li>
+            <li>
+              <strong>Risk of getting banned.</strong> Not that I care about this in particular, but sportsbooks hate winners. It’s against their terms of service to be arbitrage betting.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="prose-block">
+        <div class="wrap prose">
+          <h2>Part 5 — Conclusions</h2>
+          <p>
+            In my heart of hearts, I believe that it’s possible to find a high-EV sports betting model. I, unfortunately, was unsuccessful. This, however, was a super interesting way for me to teach myself a lot of very useful data analytic skills. I learned a lot of data manipulation techniques in Python, interacted with API calls for the first time, and most importantly, I felt that same rush a gambler feels when my code finally started working.
+          </p>
+          <p>Thanks for reading!</p>
+          <p class="article-back"><a href="../index.html#projects">Back to projects</a></p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <script src="fairodds-arbs.js"></script>
+  <script src="fairodds.js"></script>
+</body>
+</html>
